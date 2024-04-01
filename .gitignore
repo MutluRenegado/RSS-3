@@ -1,0 +1,9 @@
+# Node modules
+node_modules/
+
+# Dependency directories
+bower_components/
+jspm_packages/
+
+# Output of npm
+npm-debug.log
