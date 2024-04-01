@@ -1,0 +1,27 @@
+/* Add your CSS styles here */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #333;
+}
+
+ul#rss-feeds {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul#rss-feeds li {
+    margin-bottom: 10px;
+}
+
+ul#rss-feeds li a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+ul#rss-feeds li a:hover {
+    text-decoration: underline;
+}
