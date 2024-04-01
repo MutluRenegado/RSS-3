@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My RSS Feeds</title>
+</head>
+<body>
+    <h1>My RSS Feeds</h1>
+
+    <ul id="rss-feeds"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feedparser/2.3.0/feedparser.min.js"></script>
+    <script>
+        // Example usage of FeedParser.js
+        const rssFeeds = [
+            "https://example.com/rss/feed1.xml",
+            "https://example.com/rss/feed2.xml"
+        ];
+
+        const ul = document.getElementById("rss-feeds");
+
+        rssFeeds.forEach(feedUrl => {
+            const parser = new FeedParser();
+
+            parser.parseUrl(feedUrl, (err, feed) => {
+                if (err) {
+                    console.error("Error parsing RSS feed", err);
+                    return;
+                }
+
+                feed.items.forEach(item => {
+                    const li = document.createElement("li");
+                    const a = document.createElement("a");
+                    a.textContent = item.title;
+                    a.href = item.link;
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
