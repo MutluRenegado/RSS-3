@@ -1,27 +1,82 @@
-/* Add your CSS styles here */
+/* Reset some default browser styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
 }
 
-h1 {
-    color: #333;
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
 }
 
-ul#rss-feeds {
+nav ul {
     list-style-type: none;
-    padding: 0;
 }
 
-ul#rss-feeds li {
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
     margin-bottom: 10px;
 }
 
-ul#rss-feeds li a {
+p {
+    margin-bottom: 15px;
+}
+
+/* Style the RSS feed section */
+#rss-feed {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: white;
+}
+
+#rss-feed h2 {
+    margin-bottom: 10px;
+}
+
+#rss-feed ul {
+    list-style-type: none;
+}
+
+#rss-feed ul li {
+    margin-bottom: 10px;
+}
+
+#rss-feed ul li a {
     color: #007bff;
     text-decoration: none;
 }
 
-ul#rss-feeds li a:hover {
+#rss-feed ul li a:hover {
     text-decoration: underline;
 }
