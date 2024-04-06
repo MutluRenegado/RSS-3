@@ -3,42 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My RSS Feeds</title>
+    <title>My Website</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>My RSS Feeds</h1>
+    <header>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <ul id="rss-feeds"></ul>
+    <main>
+        <!-- Add section for RSS feed -->
+        <section id="rss-feed">
+            <!-- RSS feed will be rendered here -->
+        </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feedparser/2.3.0/feedparser.min.js"></script>
-    <script>
-        // Example usage of FeedParser.js
-        const rssFeeds = [
-            "https://example.com/rss/feed1.xml",
-            "https://example.com/rss/feed2.xml"
-        ];
+        <!-- Other sections of your website -->
+        <section id="about">
+            <h2>About</h2>
+            <p>This is a brief description of my website.</p>
+        </section>
 
-        const ul = document.getElementById("rss-feeds");
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>You can contact me at example@example.com</p>
+        </section>
+    </main>
 
-        rssFeeds.forEach(feedUrl => {
-            const parser = new FeedParser();
-
-            parser.parseUrl(feedUrl, (err, feed) => {
-                if (err) {
-                    console.error("Error parsing RSS feed", err);
-                    return;
-                }
-
-                feed.items.forEach(item => {
-                    const li = document.createElement("li");
-                    const a = document.createElement("a");
-                    a.textContent = item.title;
-                    a.href = item.link;
-                    li.appendChild(a);
-                    ul.appendChild(li);
-                });
-            });
-        });
-    </script>
+    <!-- Include the script.js file -->
+    <script src="script.js"></script>
 </body>
 </html>
