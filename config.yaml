@@ -1,6 +1,7 @@
 pagination:
   defaultPageSize: 10
   maxPages: 5
+
 filters:
   categories:
     - Technology
