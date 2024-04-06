@@ -1,48 +1,73 @@
-// script.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-document.addEventListener("DOMContentLoaded", function() {
-    const sources = [
-        "https://rssgenerator.mooo.com/feeds/?p=aaHR0cHM6Ly9uZXdzLmdvb2dsZS5jb20vaG9tZT9obD1lbi1HQiZnbD1HQiZjZWlkPUdCOmVu",
-        "https://www.nytimes.com/rss",
-        "https://www.washingtonpost.com/discussions/2018/10/12/washington-post-rss-feeds/",
-        "https://rssgenerator.mooo.com/feeds/?p=aaHR0cHM6Ly93d3cuY2hpbmFkYWlseS5jb20uY24v",
-        "https://www.sabah.com.tr/rss-bilgi/"
-    ];
+    <main>
+        <!-- Add section for RSS feed -->
+        <section id="rss-feed">
+            <!-- RSS feed will be rendered here -->
+        </section>
 
-    const rssFeedSection = document.getElementById("rss-feed");
+        <!-- Other sections of your website -->
+        <section id="about">
+            <h2>About</h2>
+            <p>This is a brief description of my website.</p>
+        </section>
 
-    // Fetch RSS feeds from all sources
-    Promise.all(sources.map(fetchFeed))
-        .then(feeds => {
-            feeds.forEach(feed => {
-                displayFeed(feed);
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching RSS feeds:", error);
-        });
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>You can contact me at example@example.com</p>
+        </section>
+    </main>
 
-    // Function to fetch RSS feed from a source
-    function fetchFeed(source) {
-        return fetch(source)
-            .then(response => response.json())
-            .then(data => data.items)
-            .catch(error => {
-                console.error("Error fetching RSS feed:", error);
-                return [];
-            });
-    }
-
-    // Function to display RSS feed items
-    function displayFeed(feedItems) {
-        feedItems.forEach(item => {
-            const article = document.createElement("article");
-            article.innerHTML = `
-                <h3>${item.title}</h3>
-                <p>${item.description}</p>
-                <a href="${item.link}" target="_blank">Read more</a>
-            `;
-            rssFeedSection.appendChild(article);
-        });
-    }
-});
+    <script>
+        fetch('source.yaml')
+            .then(response => response.text())
+            .then(text => {
+                const sources = YAML.parse(text);
+                const rssFeedSection = document.getElementById('rss-feed');
+                
+                sources.forEach(source => {
+                    fetch(source.href)
+                        .then(response => response.text())
+                        .then(xmlText => {
+                            const parser = new DOMParser();
+                            const xml = parser.parseFromString(xmlText, 'text/xml');
+                            const items = xml.querySelectorAll('item');
+                            
+                            const feedTitle = document.createElement('h2');
+                            feedTitle.textContent = source.title;
+                            rssFeedSection.appendChild(feedTitle);
+                            
+                            const ul = document.createElement('ul');
+                            items.forEach(item => {
+                                const li = document.createElement('li');
+                                const link = document.createElement('a');
+                                link.textContent = item.querySelector('title').textContent;
+                                link.href = item.querySelector('link').textContent;
+                                li.appendChild(link);
+                                ul.appendChild(li);
+                            });
+                            rssFeedSection.appendChild(ul);
+                        });
+                });
+            })
+            .catch(error => console.error('Error fetching sources:', error));
+    </script>
+</body>
+</html>
