@@ -1,5 +1,5 @@
 // Fetch the sources.yaml file to get the list of RSS feed sources
-fetch('feed.yaml')
+fetch('sources.yaml')
     .then(response => response.text())
     .then(text => {
         const sources = YAML.parse(text);
