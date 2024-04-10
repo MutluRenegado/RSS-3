@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const rssFeedSection = document.getElementById('rss-feed');
 
-    // Fetch the feed.yaml file to get the list of RSS feed sources
+    // Fetch the sources.yaml file to get the list of RSS feed sources
     fetch('feed.yaml')
         .then(response => response.text())
         .then(yamlText => {
@@ -19,20 +19,31 @@ document.addEventListener("DOMContentLoaded", function() {
                         const items = xml.querySelectorAll('item');
 
                         // Create elements to display the RSS feed content
+                        const feedContainer = document.createElement('div');
+                        feedContainer.classList.add('feed-container');
+
                         const feedTitle = document.createElement('h2');
                         feedTitle.textContent = source.title;
-                        rssFeedSection.appendChild(feedTitle);
+                        feedContainer.appendChild(feedTitle);
 
-                        const ul = document.createElement('ul');
+                        const feedList = document.createElement('ul');
+                        feedList.classList.add('feed-list');
+
                         items.forEach(item => {
-                            const li = document.createElement('li');
+                            const listItem = document.createElement('li');
+                            listItem.classList.add('feed-item');
+
                             const link = document.createElement('a');
                             link.textContent = item.querySelector('title').textContent;
                             link.href = item.querySelector('link').textContent;
-                            li.appendChild(link);
-                            ul.appendChild(li);
+                            link.target = '_blank'; // Open links in a new tab
+                            listItem.appendChild(link);
+
+                            feedList.appendChild(listItem);
                         });
-                        rssFeedSection.appendChild(ul);
+
+                        feedContainer.appendChild(feedList);
+                        rssFeedSection.appendChild(feedContainer);
                     })
                     .catch(error => console.error('Error fetching RSS feed:', error));
             });
