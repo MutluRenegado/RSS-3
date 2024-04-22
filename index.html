@@ -3,42 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="style.css">
+    <title>My RSS Feeds</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to My Website</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <h1>My RSS Feeds</h1>
     </header>
 
     <main>
-        <!-- Add section for RSS feed -->
-        <section id="rss-feed">
-            <!-- RSS feed will be rendered here -->
-        </section>
-
-        <!-- Other sections of your website -->
-        <section id="about">
-            <h2>About</h2>
-            <p>This is a brief description of my website.</p>
-        </section>
-
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>You can contact me at example@example.com</p>
-        </section>
+        <ul id="rss-feeds"></ul>
     </main>
 
-    <!-- Include the js-yaml library -->
-    <script src="https://cdn.jsdelivr.net/npm/js-yaml/dist/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feedparser/2.3.0/feedparser.min.js"></script>
+    <script>
+        const ul = document.getElementById("rss-feeds");
 
-    <!-- Include the script.js file -->
-    <script src="script.js"></script>
+        const sources = [
+            "https://rssgenerator.mooo.com/feeds/?p=aaHR0cHM6Ly9uZXdzLmdvb2dsZS5jb20vaG9tZT9obD1lbi1HQiZnbD1HQiZjZWlkPUdCOmVu/",
+            "https://www.nytimes.com/rss",
+            "https://www.washingtonpost.com/discussions/2018/10/12/washington-post-rss-feeds/",
+            "https://rssgenerator.mooo.com/feeds/?p=aaHR0cHM6Ly93d3cuY2hpbmFkYWlseS5jb20uY24v",
+            "https://www.sabah.com.tr/rss-bilgi/"
+        ];
+
+        sources.forEach(feedUrl => {
+            fetch(feedUrl)
+                .then(response => response.json())
+                .then(data => {
+                    data.items.forEach(item => {
+                        const li = document.createElement("li");
+                        const a = document.createElement("a");
+                        a.textContent = item.title;
+                        a.href = item.link;
+                        li.appendChild(a);
+                        ul.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching RSS feed", error);
+                });
+        });
+    </script>
 </body>
 </html>
