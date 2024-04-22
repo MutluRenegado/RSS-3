@@ -1,4 +1,5 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+import YAML from 'js-yaml';
+<script src="https://cdn.jsdelivr.net/npm/js-yaml/dist/js-yaml.min.js"></script>
 document.addEventListener("DOMContentLoaded", function() {
     const rssFeedSection = document.getElementById('rss-feed');
 
