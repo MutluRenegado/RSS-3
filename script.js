@@ -1,3 +1,4 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 document.addEventListener("DOMContentLoaded", function() {
     const rssFeedSection = document.getElementById('rss-feed');
 
