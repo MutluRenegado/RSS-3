@@ -1,4 +1,7 @@
 // Fetch the sources.yaml file to get the list of RSS feed sources
+import YAML from 'js-yaml';
+<script src="https://cdn.jsdelivr.net/npm/js-yaml/dist/js-yaml.min.js"></script>
+
 fetch('sources.yaml')
     .then(response => response.text())
     .then(text => {
