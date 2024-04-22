@@ -1,5 +1,3 @@
-import YAML from 'js-yaml';
-<script src="https://cdn.jsdelivr.net/npm/js-yaml/dist/js-yaml.min.js"></script>
 document.addEventListener("DOMContentLoaded", function() {
     const rssFeedSection = document.getElementById('rss-feed');
 
@@ -7,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch('sources.yaml')
         .then(response => response.text())
         .then(yamlText => {
-            const sources = YAML.parse(yamlText);
+            const sources = jsyaml.load(yamlText); // Using js-yaml library to parse YAML
 
             // Iterate over each RSS feed source
             sources.forEach(source => {
@@ -20,12 +18,11 @@ document.addEventListener("DOMContentLoaded", function() {
                         const xml = parser.parseFromString(xmlText, 'text/xml');
                         const items = xml.querySelectorAll('item');
 
-                        // Create a title for the RSS feed
+                        // Create elements to display the RSS feed content
                         const feedTitle = document.createElement('h2');
                         feedTitle.textContent = source.title;
                         rssFeedSection.appendChild(feedTitle);
 
-                        // Create an unordered list to display feed items
                         const ul = document.createElement('ul');
                         items.forEach(item => {
                             const li = document.createElement('li');
