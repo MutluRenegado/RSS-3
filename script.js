@@ -18,11 +18,12 @@ document.addEventListener("DOMContentLoaded", function() {
                         const xml = parser.parseFromString(xmlText, 'text/xml');
                         const items = xml.querySelectorAll('item');
 
-                        // Create elements to display the RSS feed content
+                        // Create a title for the RSS feed
                         const feedTitle = document.createElement('h2');
                         feedTitle.textContent = source.title;
                         rssFeedSection.appendChild(feedTitle);
 
+                        // Create an unordered list to display feed items
                         const ul = document.createElement('ul');
                         items.forEach(item => {
                             const li = document.createElement('li');
